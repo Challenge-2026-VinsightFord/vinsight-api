@@ -1,0 +1,187 @@
+# Sprint 3 - Cybersecurity: pipeline DevSecOps.
+#
+# Roda em paralelo ao ci.yml (build + 157 testes) a cada push/PR na master, toda segunda-feira
+# (CVEs novas aparecem mesmo sem mudanca no codigo) e manualmente pela aba Actions.
+#
+#   Etapa                      Ferramenta                    Bloqueia o merge quando
+#   Secret scanning            Gitleaks (historico inteiro)  qualquer segredo encontrado
+#   SAST                       Semgrep (java + OWASP Top 10) achado de severidade ERROR
+#   SAST                       CodeQL (security-extended)    (so reporta na aba Security)
+#   SCA                        Trivy fs (pom.xml)            CVE HIGH/CRITICAL com correcao disponivel
+#   SCA (PR)                   Dependency Review             PR que adiciona dependencia HIGH+
+#   IaC                        Trivy config (Dockerfile)     ma configuracao HIGH/CRITICAL
+#   Container                  Trivy image                   CVE HIGH/CRITICAL com correcao disponivel
+#
+# Todo resultado vai em SARIF para a aba Security > Code scanning do GitHub.
+name: Seguranca
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 9 * * 1' # segunda-feira, 06:00 em Brasilia
+  workflow_dispatch:
+
+concurrency:
+  group: seguranca-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  segredos:
+    name: Secret scanning (Gitleaks)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # historico inteiro: segredo apagado num commit antigo continua vazado
+
+      - name: Instalar o Gitleaks
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz \
+            | tar -xz gitleaks
+
+      - name: Varrer o historico do git
+        run: |
+          ./gitleaks git . --config .gitleaks.toml --redact --no-banner \
+            --report-format sarif --report-path gitleaks.sarif
+
+      - name: Publicar na aba Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: gitleaks.sarif
+          category: gitleaks
+
+  sast-semgrep:
+    name: SAST (Semgrep)
+    runs-on: ubuntu-latest
+    container: semgrep/semgrep
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Analise estatica (relatorio completo)
+        run: semgrep scan --config p/java --config p/owasp-top-ten --sarif --output semgrep.sarif
+
+      - name: Publicar na aba Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
+
+      - name: Portao - falha com achado de severidade ERROR
+        run: semgrep scan --config p/java --config p/owasp-top-ten --severity ERROR --error
+
+  sast-codeql:
+    name: SAST (CodeQL)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: java-kotlin
+          build-mode: none
+          queries: security-extended
+
+      - uses: github/codeql-action/analyze@v4
+        with:
+          category: codeql
+
+  sca:
+    name: SCA e IaC (Trivy fs + Dependency Review)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dependencias do pom.xml e configuracao do Dockerfile (relatorio)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scanners: vuln,misconfig
+          severity: MEDIUM,HIGH,CRITICAL
+          format: sarif
+          output: trivy-fs.sarif
+
+      - name: Publicar na aba Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-fs.sarif
+          category: trivy-fs
+
+      - name: Portao - HIGH/CRITICAL com correcao disponivel
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scanners: vuln,misconfig
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+          format: table
+
+      - name: Dependency Review (so em pull request)
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+
+  container:
+    name: Container (build + Trivy image)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construir a imagem
+        run: docker build -t vinsight-api:${{ github.sha }} .
+
+      - name: Varrer a imagem (relatorio)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: vinsight-api:${{ github.sha }}
+          severity: MEDIUM,HIGH,CRITICAL
+          format: sarif
+          output: trivy-image.sarif
+
+      - name: Publicar na aba Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-image.sarif
+          category: trivy-image
+
+      - name: Portao - HIGH/CRITICAL com correcao disponivel
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: vinsight-api:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+          format: table
+
+      - name: Usuario da imagem nao e root
+        run: |
+          usuario=$(docker inspect --format '{{.Config.User}}' vinsight-api:${{ github.sha }})
+          echo "Usuario da imagem: $usuario"
+          test -n "$usuario" && test "$usuario" != "root"

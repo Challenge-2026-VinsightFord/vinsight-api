@@ -1,0 +1,33 @@
+# SCA continuo: o Dependabot abre PR quando sai versao nova (ou correcao de CVE) de uma dependencia.
+# Cada PR passa pelos workflows CI (testes) e Seguranca (SAST, SCA, Trivy) antes do merge.
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: America/Sao_Paulo
+    open-pull-requests-limit: 5
+    labels: [dependencias, seguranca]
+    groups:
+      # Spring Boot, Security, Data etc. sobem juntos (versoes alinhadas pelo BOM)
+      spring:
+        patterns: ["org.springframework*"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Sao_Paulo
+    labels: [dependencias, ci]
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Sao_Paulo
+    labels: [dependencias, container]

@@ -1,6 +1,7 @@
 # VINSight Ford API
 
 [![CI](https://github.com/Challenge-2026-VinsightFord/vinsight-api/actions/workflows/ci.yml/badge.svg)](https://github.com/Challenge-2026-VinsightFord/vinsight-api/actions/workflows/ci.yml)
+[![Segurança](https://github.com/Challenge-2026-VinsightFord/vinsight-api/actions/workflows/security.yml/badge.svg)](https://github.com/Challenge-2026-VinsightFord/vinsight-api/actions/workflows/security.yml)
 
 Backend Spring Boot da plataforma **VINSight Ford** — Challenge FIAP 2026 / Ford Motor Company / Desafio 02.
 

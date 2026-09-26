@@ -1,0 +1,11 @@
+# Gitleaks: regras padrao + excecoes documentadas.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Valores de demonstracao conhecidos (nao sao segredos de producao)"
+regexes = [
+  # Default de DESENVOLVIMENTO do JWT_SECRET em application.properties. O perfil prod nao tem
+  # default (a aplicacao nao sobe sem JWT_SECRET) - ver application-prod.properties.
+  '''vinsight-ford-challenge-2026-secret''',
+]

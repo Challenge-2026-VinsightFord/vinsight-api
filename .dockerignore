@@ -1,0 +1,14 @@
+# Fora do contexto de build: nada de historico git, IDE, build local, docs ou arquivos de ambiente
+.git
+.github
+.idea
+.vscode
+*.iml
+target
+docs
+tools
+*.md
+.env
+.env.*
+Dockerfile
+.dockerignore
