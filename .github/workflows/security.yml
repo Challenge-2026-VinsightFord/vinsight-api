@@ -39,7 +39,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0 # historico inteiro: segredo apagado num commit antigo continua vazado
 
@@ -68,7 +68,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Analise estatica (relatorio completo)
         run: semgrep scan --config p/java --config p/owasp-top-ten --sarif --output semgrep.sarif
@@ -91,7 +91,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: github/codeql-action/init@v4
         with:
@@ -110,7 +110,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Dependencias do pom.xml e configuracao do Dockerfile (relatorio)
         uses: aquasecurity/trivy-action@v0.36.0
@@ -151,7 +151,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Construir a imagem
         run: docker build -t vinsight-api:${{ github.sha }} .
