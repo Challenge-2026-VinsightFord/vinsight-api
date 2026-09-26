@@ -30,4 +30,8 @@ updates:
       interval: weekly
       day: monday
       timezone: America/Sao_Paulo
+    ignore:
+      # Java 21 e LTS: nao trocar de versao major da JVM automaticamente (ex.: 21 -> 24, que nao e LTS)
+      - dependency-name: eclipse-temurin
+        update-types: [version-update:semver-major]
     labels: [dependencias, container]

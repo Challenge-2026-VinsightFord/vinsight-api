@@ -50,7 +50,7 @@ jobs:
 
       - name: Varrer o historico do git
         run: |
-          ./gitleaks git . --config .gitleaks.toml --redact --no-banner \
+          ./gitleaks git . --config .gitleaks.toml --redact --no-banner --verbose \
             --report-format sarif --report-path gitleaks.sarif
 
       - name: Publicar na aba Security
