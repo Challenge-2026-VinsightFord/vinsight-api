@@ -9,7 +9,7 @@
 #              --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges vinsight-api
 
 # ---------- Etapa 1: build ----------
-FROM eclipse-temurin:21-jdk-alpine AS build
+FROM eclipse-temurin:24-jdk-alpine AS build
 WORKDIR /build
 
 COPY mvnw pom.xml ./
@@ -21,7 +21,7 @@ RUN chmod +x mvnw \
     && cp target/vinsight-api-*.jar app.jar
 
 # ---------- Etapa 2: runtime ----------
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:24-jre-alpine
 
 # Usuario sem privilegio, sem shell de login e sem home
 RUN addgroup -S vinsight && adduser -S -G vinsight -H -s /sbin/nologin vinsight
