@@ -5,6 +5,7 @@ import br.com.fiap.vinsight_api.cliente.ClienteRepository;
 import br.com.fiap.vinsight_api.infra.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.vinsight_api.infra.exception.RegraNegocioException;
 import br.com.fiap.vinsight_api.infra.idempotencia.ServicoIdempotencia;
+import br.com.fiap.vinsight_api.infra.security.AuditoriaAcesso;
 import br.com.fiap.vinsight_api.infra.security.ContextoSeguranca;
 import br.com.fiap.vinsight_api.infra.security.MascaradorDados;
 import br.com.fiap.vinsight_api.veiculo.Veiculo;
@@ -27,6 +28,9 @@ import java.time.LocalDateTime;
 public class LeadService {
 
     private static final Logger log = LoggerFactory.getLogger(LeadService.class);
+
+    @Autowired
+    private AuditoriaAcesso auditoria;
 
     @Autowired
     private LeadRepository repository;
@@ -112,6 +116,8 @@ public class LeadService {
                     LocalDateTime agora = LocalDateTime.now(clock);
                     lead.registrarDesfecho(dados.desfecho(), agora);
                     desfechoRepository.save(new DesfechoLead(lead, dados, contexto.usuarioLogado(), agora));
+                    // Alteracao critica: realimenta o modelo. Reenvio idempotente nao passa aqui (nao duplica)
+                    auditoria.registrarDesfecho(lead.getId(), dados.desfecho());
                     return detalhe(lead);
                 });
     }

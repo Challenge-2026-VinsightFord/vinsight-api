@@ -2,6 +2,7 @@ package br.com.fiap.vinsight_api.infra.exception;
 
 import br.com.fiap.vinsight_api.infra.security.AcessoForaDoEscopoException;
 import br.com.fiap.vinsight_api.infra.security.AuditoriaAcesso;
+import br.com.fiap.vinsight_api.infra.security.MuitasTentativasException;
 import br.com.fiap.vinsight_api.infra.security.TokenInvalidoException;
 import br.com.fiap.vinsight_api.infra.web.CorrelationIdFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -139,6 +140,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
         auditoria.registrarAcessoNegado(request, detalhe);
         return responder(HttpStatus.FORBIDDEN, tipo, detalhe, request);
+    }
+
+    // Login bloqueado pelo LimiteTentativasLogin (forca bruta). Retry-After diz quando tentar de novo
+    @ExceptionHandler(MuitasTentativasException.class)
+    public ResponseEntity<ProblemDetail> handle429(MuitasTentativasException e, HttpServletRequest request) {
+        ProblemDetail problema = ProblemDetail.forStatusAndDetail(HttpStatus.TOO_MANY_REQUESTS, e.getMessage());
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                .header(HttpHeaders.RETRY_AFTER, String.valueOf(e.getSegundosParaLiberar()))
+                .body(completar(problema, TipoProblema.MUITAS_REQUISICOES, request));
     }
 
     // Nenhum detalhe interno para o cliente: nem stack trace, nem nome de classe.

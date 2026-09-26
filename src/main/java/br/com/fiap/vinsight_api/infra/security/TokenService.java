@@ -7,8 +7,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -36,6 +39,15 @@ public class TokenService {
 
     @Value("${api.security.token.refresh-expiration-hours}")
     private long horasRefresh;
+
+    // HS256 exige chave de pelo menos 256 bits (RFC 7518, 3.2). Segredo curto = token forjavel por
+    // forca bruta offline. A aplicacao nao sobe com segredo fraco (no perfil prod, nem sem segredo).
+    @PostConstruct
+    void validarSegredo() {
+        if (secret == null || secret.getBytes(StandardCharsets.UTF_8).length < 32) {
+            throw new IllegalStateException("JWT_SECRET precisa ter pelo menos 32 bytes (256 bits) para o HMAC-256.");
+        }
+    }
 
     public String gerarAccessToken(Usuario usuario) {
         return gerarToken(usuario, TIPO_ACCESS, Duration.ofMinutes(minutosAccess));

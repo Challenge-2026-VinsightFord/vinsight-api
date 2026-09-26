@@ -2,10 +2,12 @@ package br.com.fiap.vinsight_api.usuario;
 
 import br.com.fiap.vinsight_api.config.ErroDocumentado;
 import br.com.fiap.vinsight_api.infra.exception.TipoProblema;
+import br.com.fiap.vinsight_api.infra.security.AuditoriaAcesso;
 import br.com.fiap.vinsight_api.infra.security.DadosTokenJWT;
 import br.com.fiap.vinsight_api.infra.security.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,13 +35,25 @@ public class AuthController {
     @Autowired
     private UsuarioRepository repository;
 
+    @Autowired
+    private AuditoriaAcesso auditoria;
+
     @PostMapping("/login")
     @Operation(summary = "Autentica por e-mail e senha e devolve access token (15 min) e refresh token (8 h)")
     @ErroDocumentado(tipo = TipoProblema.CREDENCIAIS_INVALIDAS, quando = "E-mail ou senha inválidos. E-mail inexistente e usuário inativo dão a mesma resposta.")
-    public ResponseEntity<DadosTokenJWT> login(@RequestBody @Valid DadosLogin dados) {
+    @ErroDocumentado(tipo = TipoProblema.MUITAS_REQUISICOES, quando = "5 falhas de login do mesmo IP em 1 minuto: bloqueado até a janela acabar (header Retry-After).")
+    public ResponseEntity<DadosTokenJWT> login(@RequestBody @Valid DadosLogin dados, HttpServletRequest request) {
         var token = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
-        Authentication authentication = manager.authenticate(token);
-        return ResponseEntity.ok(gerarTokens((Usuario) authentication.getPrincipal()));
+        Authentication authentication;
+        try {
+            authentication = manager.authenticate(token);
+        } catch (AuthenticationException e) {
+            auditoria.registrarFalhaLogin(dados.email(), request);
+            throw e;
+        }
+        Usuario usuario = (Usuario) authentication.getPrincipal();
+        auditoria.registrarLogin(usuario, request);
+        return ResponseEntity.ok(gerarTokens(usuario));
     }
 
     @PostMapping("/refresh")

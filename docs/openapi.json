@@ -79,8 +79,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -290,8 +290,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -460,8 +460,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -822,8 +822,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -1290,8 +1290,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -1753,8 +1753,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -2117,8 +2117,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -2462,8 +2462,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -2763,8 +2763,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -2955,8 +2955,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -3096,8 +3096,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -3120,6 +3120,30 @@
                       "title" : "Credenciais inválidas",
                       "status" : 401,
                       "detail" : "E-mail ou senha inválidos. E-mail inexistente e usuário inativo dão a mesma resposta.",
+                      "instance" : "/api/v1/...",
+                      "timestamp" : "2026-09-22T14:30:00Z",
+                      "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Muitas requisições",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problema"
+                },
+                "examples" : {
+                  "muitas-requisicoes" : {
+                    "summary" : "5 falhas de login do mesmo IP em 1 minuto: bloqueado até a janela acabar (header Retry-After).",
+                    "value" : {
+                      "type" : "https://vinsight.ford/errors/muitas-requisicoes",
+                      "title" : "Muitas requisições",
+                      "status" : 429,
+                      "detail" : "5 falhas de login do mesmo IP em 1 minuto: bloqueado até a janela acabar (header Retry-After).",
                       "instance" : "/api/v1/...",
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
@@ -3390,8 +3414,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -3739,8 +3763,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -3976,8 +4000,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }
@@ -4162,8 +4186,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "mensagem" : "não deve ser nulo",
-                        "campo" : "desfecho"
+                        "campo" : "desfecho",
+                        "mensagem" : "não deve ser nulo"
                       } ]
                     }
                   }

@@ -20,6 +20,7 @@ public enum TipoProblema {
     METODO_NAO_PERMITIDO("metodo-nao-permitido", "Método não permitido", 405),
     FORMATO_NAO_SUPORTADO("formato-nao-suportado", "Formato não suportado", 415),
     CONFLITO("conflito", "Conflito", 409),
+    MUITAS_REQUISICOES("muitas-requisicoes", "Muitas requisições", 429),
     ERRO_INTERNO("erro-interno", "Erro interno", 500);
 
     private static final String BASE = "https://vinsight.ford/errors/";
@@ -59,6 +60,7 @@ public enum TipoProblema {
             case 406, 415 -> FORMATO_NAO_SUPORTADO;
             case 409 -> CONFLITO;
             case 422 -> VALIDACAO;
+            case 429 -> MUITAS_REQUISICOES;
             default -> status >= 500 ? ERRO_INTERNO : REQUISICAO_INVALIDA;
         };
     }
