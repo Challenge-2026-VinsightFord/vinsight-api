@@ -1,0 +1,6 @@
+# Achados do Gitleaks triados como falso positivo (um por linha, pelo fingerprint do relatorio).
+# Cada linha precisa de justificativa; segredo real nunca entra aqui: e trocado e removido.
+
+# 26/09/2026 - "senha=segredo123" e um segredo FALSO plantado de proposito no ErroInternoTest,
+# para provar que o erro 500 nao devolve ao cliente o texto da excecao.
+4424adf73454f014fea553598df66ef10ddc5648:src/test/java/br/com/fiap/vinsight_api/infra/exception/ErroInternoTest.java:generic-api-key:32
