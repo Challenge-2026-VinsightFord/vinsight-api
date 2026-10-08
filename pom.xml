@@ -31,6 +31,10 @@
 		<!-- Seguranca: o Trivy (security.yml) achou CVEs HIGH/CRITICAL no Tomcat do Boot 4.0.8 (11.0.24),
 		     ex.: CVE-2026-65182, corrigida na 11.0.25. Remover quando o Boot trouxer versao >= esta -->
 		<tomcat.version>11.0.26</tomcat.version>
+		<!-- Seguranca: CVE-2026-89407 e CVE-2026-68497 (HIGH) no Jackson 2.21.5/3.1.5 do Boot 4.0.8,
+		     apontadas pelo Trivy em 10/2026. Versoes de correcao da mesma linha -->
+		<jackson-2-bom.version>2.21.7</jackson-2-bom.version>
+		<jackson-bom.version>3.1.7</jackson-bom.version>
 		<!-- Preenchido pelo JaCoCo (prepare-agent); vazio quando ele nao roda, para o @{argLine} do surefire resolver -->
 		<argLine></argLine>
 	</properties>
