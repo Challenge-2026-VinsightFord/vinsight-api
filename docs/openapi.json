@@ -79,8 +79,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -290,8 +290,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -460,8 +460,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -822,8 +822,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -1290,8 +1290,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -1557,11 +1557,36 @@
             "type" : "string"
           }
         }, {
-          "name" : "paginacao",
+          "name" : "page",
           "in" : "query",
-          "required" : true,
+          "description" : "Zero-based page index (0..N)",
+          "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Pageable"
+            "type" : "integer",
+            "default" : 0,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the page to be returned",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 20,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "default" : [ "id,ASC" ],
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -1571,6 +1596,30 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/DadosPaginaDadosListagemVeiculo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Requisição inválida",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problema"
+                },
+                "examples" : {
+                  "requisicao-invalida" : {
+                    "summary" : "Parâmetro sort com campo inexistente.",
+                    "value" : {
+                      "type" : "https://vinsight.ford/errors/requisicao-invalida",
+                      "title" : "Requisição inválida",
+                      "status" : 400,
+                      "detail" : "Parâmetro sort com campo inexistente.",
+                      "instance" : "/api/v1/...",
+                      "timestamp" : "2026-09-22T14:30:00Z",
+                      "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
+                    }
+                  }
                 }
               }
             }
@@ -1753,8 +1802,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -1921,11 +1970,36 @@
             "format" : "int64"
           }
         }, {
-          "name" : "paginacao",
+          "name" : "page",
           "in" : "query",
-          "required" : true,
+          "description" : "Zero-based page index (0..N)",
+          "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Pageable"
+            "type" : "integer",
+            "default" : 0,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the page to be returned",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 20,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "default" : [ "score,DESC" ],
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -1935,6 +2009,30 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/DadosPaginaDadosFilaLead"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Requisição inválida",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problema"
+                },
+                "examples" : {
+                  "requisicao-invalida" : {
+                    "summary" : "Parâmetro sort com campo inexistente.",
+                    "value" : {
+                      "type" : "https://vinsight.ford/errors/requisicao-invalida",
+                      "title" : "Requisição inválida",
+                      "status" : 400,
+                      "detail" : "Parâmetro sort com campo inexistente.",
+                      "instance" : "/api/v1/...",
+                      "timestamp" : "2026-09-22T14:30:00Z",
+                      "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
+                    }
+                  }
                 }
               }
             }
@@ -2117,8 +2215,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -2266,11 +2364,36 @@
             "type" : "string"
           }
         }, {
-          "name" : "paginacao",
+          "name" : "page",
           "in" : "query",
-          "required" : true,
+          "description" : "Zero-based page index (0..N)",
+          "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Pageable"
+            "type" : "integer",
+            "default" : 0,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the page to be returned",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 20,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "default" : [ "id,ASC" ],
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -2280,6 +2403,30 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/DadosPaginaDadosResumoCliente"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Requisição inválida",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problema"
+                },
+                "examples" : {
+                  "requisicao-invalida" : {
+                    "summary" : "Parâmetro sort com campo inexistente.",
+                    "value" : {
+                      "type" : "https://vinsight.ford/errors/requisicao-invalida",
+                      "title" : "Requisição inválida",
+                      "status" : 400,
+                      "detail" : "Parâmetro sort com campo inexistente.",
+                      "instance" : "/api/v1/...",
+                      "timestamp" : "2026-09-22T14:30:00Z",
+                      "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
+                    }
+                  }
                 }
               }
             }
@@ -2462,8 +2609,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -2603,11 +2750,36 @@
         "summary" : "Lista concessionárias ativas paginadas",
         "operationId" : "listar_1",
         "parameters" : [ {
-          "name" : "paginacao",
+          "name" : "page",
           "in" : "query",
-          "required" : true,
+          "description" : "Zero-based page index (0..N)",
+          "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Pageable"
+            "type" : "integer",
+            "default" : 0,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the page to be returned",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 20,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "default" : [ "id,ASC" ],
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -2617,6 +2789,30 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/DadosPaginaDadosListagemConcessionaria"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Requisição inválida",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problema"
+                },
+                "examples" : {
+                  "requisicao-invalida" : {
+                    "summary" : "Parâmetro sort com campo inexistente.",
+                    "value" : {
+                      "type" : "https://vinsight.ford/errors/requisicao-invalida",
+                      "title" : "Requisição inválida",
+                      "status" : 400,
+                      "detail" : "Parâmetro sort com campo inexistente.",
+                      "instance" : "/api/v1/...",
+                      "timestamp" : "2026-09-22T14:30:00Z",
+                      "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
+                    }
+                  }
                 }
               }
             }
@@ -2763,8 +2959,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -2955,8 +3151,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -3096,8 +3292,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -3218,11 +3414,36 @@
             "enum" : [ "AGENDADO", "CONFIRMADO", "REALIZADO", "CANCELADO", "NO_SHOW" ]
           }
         }, {
-          "name" : "paginacao",
+          "name" : "page",
           "in" : "query",
-          "required" : true,
+          "description" : "Zero-based page index (0..N)",
+          "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Pageable"
+            "type" : "integer",
+            "default" : 0,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the page to be returned",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 20,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "default" : [ "dataHora,ASC" ],
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -3232,6 +3453,30 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/DadosPaginaDadosListagemAgendamento"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Requisição inválida",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problema"
+                },
+                "examples" : {
+                  "requisicao-invalida" : {
+                    "summary" : "Parâmetro sort com campo inexistente.",
+                    "value" : {
+                      "type" : "https://vinsight.ford/errors/requisicao-invalida",
+                      "title" : "Requisição inválida",
+                      "status" : 400,
+                      "detail" : "Parâmetro sort com campo inexistente.",
+                      "instance" : "/api/v1/...",
+                      "timestamp" : "2026-09-22T14:30:00Z",
+                      "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
+                    }
+                  }
                 }
               }
             }
@@ -3414,8 +3659,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -3763,8 +4008,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -4000,8 +4245,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -4149,11 +4394,36 @@
             "pattern" : "[A-HJ-NPR-Z0-9]{17}"
           }
         }, {
-          "name" : "paginacao",
+          "name" : "page",
           "in" : "query",
-          "required" : true,
+          "description" : "Zero-based page index (0..N)",
+          "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Pageable"
+            "type" : "integer",
+            "default" : 0,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the page to be returned",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 20,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "default" : [ "dataHora,ASC" ],
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -4163,6 +4433,30 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/DadosPaginaDadosListagemAgendamento"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Requisição inválida",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problema"
+                },
+                "examples" : {
+                  "requisicao-invalida" : {
+                    "summary" : "Parâmetro sort com campo inexistente.",
+                    "value" : {
+                      "type" : "https://vinsight.ford/errors/requisicao-invalida",
+                      "title" : "Requisição inválida",
+                      "status" : 400,
+                      "detail" : "Parâmetro sort com campo inexistente.",
+                      "instance" : "/api/v1/...",
+                      "timestamp" : "2026-09-22T14:30:00Z",
+                      "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
+                    }
+                  }
                 }
               }
             }
@@ -4186,8 +4480,8 @@
                       "timestamp" : "2026-09-22T14:30:00Z",
                       "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c",
                       "violacoes" : [ {
-                        "campo" : "desfecho",
-                        "mensagem" : "não deve ser nulo"
+                        "mensagem" : "não deve ser nulo",
+                        "campo" : "desfecho"
                       } ]
                     }
                   }
@@ -4640,11 +4934,36 @@
             "format" : "int64"
           }
         }, {
-          "name" : "paginacao",
+          "name" : "page",
           "in" : "query",
-          "required" : true,
+          "description" : "Zero-based page index (0..N)",
+          "required" : false,
           "schema" : {
-            "$ref" : "#/components/schemas/Pageable"
+            "type" : "integer",
+            "default" : 0,
+            "minimum" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the page to be returned",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "default" : 20,
+            "minimum" : 1
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "default" : [ "dataHora,ASC" ],
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -4654,6 +4973,30 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/DadosPaginaDadosListagemAgendamento"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Requisição inválida",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problema"
+                },
+                "examples" : {
+                  "requisicao-invalida" : {
+                    "summary" : "Parâmetro sort com campo inexistente.",
+                    "value" : {
+                      "type" : "https://vinsight.ford/errors/requisicao-invalida",
+                      "title" : "Requisição inválida",
+                      "status" : 400,
+                      "detail" : "Parâmetro sort com campo inexistente.",
+                      "instance" : "/api/v1/...",
+                      "timestamp" : "2026-09-22T14:30:00Z",
+                      "correlationId" : "b7f3c2a1-5d4e-4f6a-9b8c-1d2e3f4a5b6c"
+                    }
+                  }
                 }
               }
             }
@@ -5851,27 +6194,6 @@
           }
         },
         "required" : [ "status" ]
-      },
-      "Pageable" : {
-        "type" : "object",
-        "properties" : {
-          "page" : {
-            "type" : "integer",
-            "format" : "int32",
-            "minimum" : 0
-          },
-          "size" : {
-            "type" : "integer",
-            "format" : "int32",
-            "minimum" : 1
-          },
-          "sort" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        }
       },
       "DadosListagemVeiculo" : {
         "type" : "object",

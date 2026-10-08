@@ -19,6 +19,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Valid;
 import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.core.MethodParameter;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,6 +40,7 @@ import java.util.Set;
  *
  * - POST -> 201 com header Location · DELETE -> 204
  * - corpo na requisicao -> 400 (JSON malformado) e 422 (validacao, com a lista de violacoes)
+ * - listagem paginada -> 400 (?sort= com campo inexistente)
  * - restricao em parametro da URL (ex.: VIN) -> 422
  * - {id}/{vin} na rota -> 404
  * - @PreAuthorize -> 401 (token) e 403 (perfil; e outra concessionaria nos servicos com escopo)
@@ -72,6 +74,9 @@ public class DocumentacaoRespostas implements OperationCustomizer {
 
         if (temParametro(parametros, RequestBody.class)) {
             erro(respostas, TipoProblema.REQUISICAO_INVALIDA, "Corpo da requisição malformado ou ilegível.");
+        }
+        if (Arrays.stream(parametros).anyMatch(p -> Pageable.class.isAssignableFrom(p.getParameterType()))) {
+            erro(respostas, TipoProblema.REQUISICAO_INVALIDA, "Parâmetro sort com campo inexistente.");
         }
         if (validaEntrada(parametros)) {
             erro(respostas, TipoProblema.VALIDACAO, "Um ou mais campos estão inválidos.");

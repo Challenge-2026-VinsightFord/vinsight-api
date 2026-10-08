@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -61,7 +62,7 @@ public class ClienteController {
     public ResponseEntity<DadosPagina<DadosResumoCliente>> buscar(
             @Parameter(description = "Nome parcial, CPF ou trecho do telefone. Vazio lista a carteira inteira.")
             @RequestParam(required = false) String q,
-            @PageableDefault(size = 20, sort = "id") Pageable paginacao) {
+            @ParameterObject @PageableDefault(size = 20, sort = "id") Pageable paginacao) {
         return ResponseEntity.ok(new DadosPagina<>(service.buscar(q, paginacao)));
     }
 

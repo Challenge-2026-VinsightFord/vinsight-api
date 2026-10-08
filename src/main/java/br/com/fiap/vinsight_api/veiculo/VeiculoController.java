@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -61,7 +62,7 @@ public class VeiculoController {
     public ResponseEntity<DadosPagina<DadosListagemVeiculo>> listar(
             @Parameter(description = "Placa, com ou sem hífen (ex.: ABC1D23 ou ABC-1D23)")
             @RequestParam(required = false) String placa,
-            @PageableDefault(size = 20, sort = "id") Pageable paginacao) {
+            @ParameterObject @PageableDefault(size = 20, sort = "id") Pageable paginacao) {
         return ResponseEntity.ok(new DadosPagina<>(service.listar(placa, paginacao)));
     }
 
@@ -96,7 +97,7 @@ public class VeiculoController {
     @Operation(summary = "Lista agendamentos do veículo na unidade do usuário (paginado)")
     public ResponseEntity<DadosPagina<DadosListagemAgendamento>> listarAgendamentos(
             @PathVariable @Pattern(regexp = Vin.REGEX, message = Vin.MENSAGEM) String vin,
-            @PageableDefault(size = 20, sort = "dataHora") Pageable paginacao) {
+            @ParameterObject @PageableDefault(size = 20, sort = "dataHora") Pageable paginacao) {
         return ResponseEntity.ok(new DadosPagina<>(service.listarAgendamentos(vin, paginacao)));
     }
 }

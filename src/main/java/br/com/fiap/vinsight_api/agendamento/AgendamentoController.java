@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -53,7 +54,7 @@ public class AgendamentoController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim,
             @RequestParam(required = false) Long concessionariaId,
             @RequestParam(required = false) StatusAgendamento status,
-            @PageableDefault(size = 20, sort = "dataHora") Pageable paginacao) {
+            @ParameterObject @PageableDefault(size = 20, sort = "dataHora") Pageable paginacao) {
         return ResponseEntity.ok(new DadosPagina<>(service.listar(dataInicio, dataFim, concessionariaId, status, paginacao)));
     }
 

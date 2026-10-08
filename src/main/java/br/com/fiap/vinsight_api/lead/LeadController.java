@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -65,7 +66,7 @@ public class LeadController {
             @Parameter(description = "ALTO (score >= 0.70), MEDIO (0.40 a 0.69) ou BAIXO (< 0.40)")
             @RequestParam(required = false) FaixaRisco risco,
             @RequestParam(required = false) Long clienteId,
-            @PageableDefault(size = 20, sort = "score", direction = Sort.Direction.DESC) Pageable paginacao) {
+            @ParameterObject @PageableDefault(size = 20, sort = "score", direction = Sort.Direction.DESC) Pageable paginacao) {
         return ResponseEntity.ok(new DadosPagina<>(service.fila(status, risco, clienteId, paginacao)));
     }
 
