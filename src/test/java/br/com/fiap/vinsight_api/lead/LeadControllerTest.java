@@ -208,7 +208,7 @@ class LeadControllerTest extends TesteIntegracao {
         @DisplayName("PATCH AGENDADO encerra o lead e grava o desfecho para o retreinamento")
         void agendadoEncerraLead() throws Exception {
             registrar(CONSULTOR_MORUMBI, 1, """
-                    {"desfecho":"AGENDADO","observacao":"Cliente aceitou revisão","proximoContato":"2026-10-02"}""", null)
+                    {"desfecho":"AGENDADO","observacao":"Cliente aceitou revisão","proximoContato":"2030-10-02"}""", null)
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.status").value("AGENDADO"))
                     .andExpect(jsonPath("$.ultimoContatoEm", notNullValue()))

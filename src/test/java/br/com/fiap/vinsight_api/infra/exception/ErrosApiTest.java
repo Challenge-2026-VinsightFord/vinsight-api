@@ -77,6 +77,17 @@ class ErrosApiTest extends TesteIntegracao {
                 .andExpect(jsonPath("$.detail").value("Parâmetro sort com campo inexistente."));
     }
 
+    // O exemplo padrao do Pageable no Swagger ({"sort": ["string"]}) chega como sort=["string"]
+    @Test
+    @DisplayName("Ordenação com aspas ou colchetes no campo (exemplo padrão do Swagger) responde 400, não 500")
+    void ordenacaoComCaracteresInvalidos() throws Exception {
+        for (String sort : new String[]{"[\"string\"]", "\"string\""}) {
+            mvc.perform(get("/api/v1/leads").param("sort", sort).header("Authorization", bearer(CONSULTOR_MORUMBI)))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.detail").value("Parâmetro sort com campo inexistente."));
+        }
+    }
+
     @Test
     @DisplayName("Toda resposta traz X-Correlation-Id, o mesmo valor do corpo do erro")
     void correlationIdNoHeaderENoCorpo() throws Exception {

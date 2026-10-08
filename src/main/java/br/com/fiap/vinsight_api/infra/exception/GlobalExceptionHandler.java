@@ -92,10 +92,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     // ?sort= com campo inexistente. Derived query: PropertyReferenceException; @Query: o Hibernate
-    // lanca UnknownPathException embrulhada. Qualquer outro mau uso de API de dados segue 500.
+    // lanca UnknownPathException embrulhada; campo com aspas ou colchetes (o exemplo padrao do Pageable
+    // no Swagger manda sort=["string"]): o Spring Data recusa a "Sort expression".
+    // Qualquer outro mau uso de API de dados segue 500.
     @ExceptionHandler({PropertyReferenceException.class, InvalidDataAccessApiUsageException.class})
     public ResponseEntity<ProblemDetail> handle400Ordenacao(Exception e, HttpServletRequest request) {
-        if (e instanceof PropertyReferenceException || buscarCausa(e, UnknownPathException.class) != null) {
+        if (e instanceof PropertyReferenceException || buscarCausa(e, UnknownPathException.class) != null
+                || expressaoDeOrdenacaoRecusada(e)) {
             return responder(HttpStatus.BAD_REQUEST, TipoProblema.REQUISICAO_INVALIDA,
                     "Parâmetro sort com campo inexistente.", request);
         }
@@ -292,6 +295,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     // ------------------------------------------------------------------ utilitarios de JSON
+
+    // Mensagem do QueryUtils do Spring Data JPA ao aplicar um Sort que nao e referencia de propriedade
+    private static boolean expressaoDeOrdenacaoRecusada(Throwable ex) {
+        for (Throwable atual = ex; atual != null; atual = atual.getCause()) {
+            if (atual.getMessage() != null && atual.getMessage().startsWith("Sort expression")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private static <T extends Throwable> T buscarCausa(Throwable ex, Class<T> tipo) {
         for (Throwable atual = ex; atual != null; atual = atual.getCause()) {
