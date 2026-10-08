@@ -22,6 +22,10 @@ Organizada em serviços por domínio (**Auth**, **Customer**, **Vehicle**, **Lea
 e por **concessionária**, mascaramento de dados pessoais (**LGPD**) e erros padronizados em
 **RFC 7807**.
 
+O score de risco e o perfil comportamental de cada lead vêm da **camada de inteligência** em
+[`ml/`](ml/README.md): um notebook que treina e compara quatro classificadores, segmenta os clientes com
+K-Means e cria os leads na API pelo `POST /api/v1/leads`.
+
 ## Arquitetura
 
 A API é o backend SOA da plataforma: atende o **app do consultor** (React Native / Expo), recebe os

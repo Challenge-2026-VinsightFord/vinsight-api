@@ -1,0 +1,38 @@
+﻿veiculoId,clienteId,vin,score,prioridade,motivo,acaoRecomendada,perfilComportamental,consentimentoAtivo,geraLead
+35,28,9BFXD482HMSVRCSB5,0.87,CRITICA,Nunca fez serviço na rede; Garantia encerrada há 26 meses,Ligar oferecendo diagnóstico gratuito e condição especial de retorno,ABANDONO,1,1
+27,22,9BFT00B0KB1763PS7,0.84,ALTA,Nunca fez serviço na rede; Garantia encerrada há 29 meses,Ligar oferecendo diagnóstico gratuito e condição especial de retorno,ABANDONO,1,1
+3,3,9BFRHMLMFR0P96DF3,0.8,ALTA,Nunca fez serviço na rede; Garantia encerrada há 30 meses,Ligar oferecendo diagnóstico gratuito e condição especial de retorno,ABANDONO,1,1
+10,8,9BFTD9B1FS40TRG00,0.76,ALTA,Sem serviço na rede há 14 meses; Garantia encerrada há 43 meses,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,1
+18,15,9BFXHTGW35KR85BT8,0.64,MEDIA,Garantia encerrada há 38 meses; Revisão vencida,Oferecer revisão com preço fechado Ford,ECONOMICO,1,1
+26,21,9BF18BGFS90D2PB66,0.63,MEDIA,Garantia encerrada há 35 meses; Só 40% dos serviços na rede,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,1
+19,16,9BFXR3MJLVF4SB8T9,0.62,MEDIA,Sem serviço na rede há 15 meses; Garantia encerrada há 22 meses,Oferecer revisão com preço fechado Ford,ECONOMICO,1,1
+20,16,9BFMN8KNKB5512FV0,0.6,MEDIA,Garantia encerrada há 17 meses; Revisão vencida,Oferecer revisão com preço fechado Ford,ECONOMICO,1,1
+7,6,9BFB384GY4WZJDPH7,0.59,MEDIA,Nunca fez serviço na rede; Só 0% dos serviços na rede,Ligar oferecendo diagnóstico gratuito e condição especial de retorno,ABANDONO,1,1
+4,4,9BFJKD4NL04BHG2Z4,0.56,MEDIA,Garantia encerrada há 13 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+24,20,9BFTMP3G0KFSXZ6P4,0.55,MEDIA,Garantia encerrada há 69 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+2,2,9BFT1S782CWZJG7X2,0.55,MEDIA,Garantia encerrada há 35 meses; Revisão vencida,Oferecer revisão com preço fechado Ford,ECONOMICO,1,0
+6,5,9BFPPDCN0WNL6F676,0.5,MEDIA,Revisão vencida; NPS 6,Oferecer revisão com preço fechado Ford,ECONOMICO,0,0
+34,28,9BF74NGP748T3F114,0.5,MEDIA,Garantia encerrada há 43 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+12,10,9BFSKSX7MLBPT9272,0.47,MEDIA,Garantia encerrada há 21 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+30,24,9BF3ZST89M3HL82K0,0.39,BAIXA,Sem serviço na rede há 13 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+32,26,9BFVMFBKP5G8M2HN2,0.36,BAIXA,Garantia encerrada há 65 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+37,30,9BFGPJKM887SN21G7,0.34,BAIXA,Sem serviço na rede há 13 meses; Garantia encerrada há 3 meses,Oferecer revisão com preço fechado Ford,ECONOMICO,1,0
+8,7,9BFCYFCZVYW2CPYF8,0.34,BAIXA,Garantia encerrada há 65 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+14,12,9BFNFR521M8R9GGW4,0.31,BAIXA,Só 40% dos serviços na rede; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,0,0
+9,8,9BF2NPNC4S1X1FCW9,0.26,BAIXA,Garantia encerrada há 47 meses,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+31,25,9BFD47TW1P83WD6M1,0.24,BAIXA,Sem serviço na rede há 20 meses; Só 25% dos serviços na rede,Ligar oferecendo diagnóstico gratuito e condição especial de retorno,ABANDONO,1,0
+5,4,9BFC05GG9JY36J9B5,0.24,BAIXA,Garantia encerrada há 8 meses,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+1,1,9BF8313PF9WBWDX01,0.23,BAIXA,Garantia encerrada há 52 meses,Oferecer revisão com preço fechado Ford,ECONOMICO,1,0
+25,20,9BF70G2N1R4MBBRL5,0.21,BAIXA,Garantia encerrada há 52 meses,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+22,18,9BF27717N7KRTTK62,0.19,BAIXA,Sem serviço na rede há 19 meses; Revisão vencida,Oferecer revisão com preço fechado Ford,ECONOMICO,1,0
+16,13,9BF28PJXK1WLZ5S16,0.18,BAIXA,Garantia encerrada há 61 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+17,14,9BF5WWL6LP3RL90L7,0.17,BAIXA,Garantia encerrada há 56 meses; Só 20% dos serviços na rede,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+21,17,9BFWHMC4MVNC3GT61,0.17,BAIXA,Garantia encerrada há 0 meses,Oferecer revisão com preço fechado Ford,ECONOMICO,1,0
+36,29,9BF2143V20L9TYL86,0.15,BAIXA,Garantia encerrada há 20 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+28,23,9BFVK5SML1SZLSJ58,0.15,BAIXA,Garantia encerrada há 13 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+15,12,9BFXT2WTVLHWT09F5,0.14,BAIXA,Sem serviço na rede há 13 meses; Só 33% dos serviços na rede,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,0,0
+11,9,9BF60R6786867X7T1,0.13,BAIXA,Garantia encerrada há 26 meses; Revisão vencida,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+29,24,9BFPXY417YH7KJMR9,0.12,BAIXA,Garantia encerrada há 8 meses,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+33,27,9BF0N9W1WFY9DLNG3,0.11,BAIXA,Garantia encerrada há 48 meses,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,0,0
+13,11,9BFHFX2N86KR4JYW3,0.1,BAIXA,Garantia encerrada há 4 meses,Lembrar a próxima revisão e oferecer agendamento direto,FIEL,1,0
+23,19,9BF1V0TMY6DLY1ZY3,0.08,BAIXA,Sem serviço na rede há 13 meses; Só 40% dos serviços na rede,Oferecer revisão com preço fechado Ford,ECONOMICO,0,0
